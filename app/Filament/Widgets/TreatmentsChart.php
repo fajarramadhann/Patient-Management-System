@@ -13,22 +13,27 @@ class TreatmentsChart extends ChartWidget
 
     protected function getData(): array
     {
-            $data = Trend::model(Treatment::class)
-                ->between(
-                    start: now()->subMonth(),
+            /**
+             * Ambil data tren dari model Treatment untuk periode satu tahun terakhir,
+             * dipecah per bulan, dan hitung jumlah kejadian setiap bulan
+             **/
+            
+            $data = Trend::model(Treatment::class) // ambil data tren dari model Treatment
+                ->between( // menentukan data waktu untuk data tren, dari 1 tahun lalu hingga waktu saat ini
+                    start: now()->subYear(),
                     end: now(),
                 )
-                ->perMonth()
-                ->count();
+                ->perMonth() // dibagi perbulan
+                ->count(); // jumlah perubahan setiap bulan
 
         return [
             'datasets' => [
                 [
-                    'label' => 'Treatments',
-                    'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
+                    'label' => 'Treatments', // label buat chart
+                    'data' => $data->map(fn (TrendValue $value) => $value->aggregate), // // Data buat dataset, ambil nilai aggregate dari setiap TrendValue
                 ],
             ],
-            'labels' => $data->map(fn (TrendValue $value) => $value->date),
+            'labels' => $data->map(fn (TrendValue $value) => $value->date), // Label untuk sumbu x pada grafik, mengambil tanggal dari setiap TrendValue
         ];
     }
 

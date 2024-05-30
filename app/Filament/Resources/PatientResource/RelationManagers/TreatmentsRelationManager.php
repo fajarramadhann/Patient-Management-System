@@ -14,6 +14,10 @@ class TreatmentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'treatments';
 
+    /**
+     * Bikin form buat bikin treatment dari Patient yang harus diisi (description, notes, price)
+     */
+
     public function form(Form $form): Form
     {
         return $form
@@ -28,7 +32,6 @@ class TreatmentsRelationManager extends RelationManager
                 Forms\Components\TextInput::make('price')
                     ->numeric()
                     ->prefix('Rp. ')
-                    ->maxValue(42949672.95),
             ]);
     }
 

@@ -22,6 +22,11 @@ class PatientResource extends Resource
 
     public static function form(Form $form): Form
     {
+
+        /**
+         * Bikin form buat tambah patient yang harus diisi (name, type, date_of_birth, owner)
+         */
+
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
@@ -38,11 +43,11 @@ class PatientResource extends Resource
                     Forms\Components\DatePicker::make('date_of_birth')
                     ->required()
                     ->maxDate(now()),
-                Forms\Components\Select::make('owner_id')
-                    ->relationship('owner', 'name')
+                Forms\Components\Select::make('owner_id') // bikin field owner_id di table patients
+                    ->relationship('owner', 'name') // menghubungkan nama patients ke owner
                     ->searchable()
                     ->preload()
-                    ->createOptionForm([
+                    ->createOptionForm([ // modal untuk menambahkan data owner
                         Forms\Components\TextInput::make('name')
                         ->required()
                         ->maxLength(255),
@@ -62,6 +67,11 @@ class PatientResource extends Resource
 
     public static function table(Table $table): Table
     {
+
+        /**
+         * Munculin data di table Patients
+         */
+
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
@@ -77,7 +87,7 @@ class PatientResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->datetime(),
             ])
-            ->filters([
+            ->filters([ // Filter untuk setiap type Patient
                 Tables\Filters\SelectFilter::make('type')
                     ->options([
                         'cat' => 'Cat',
