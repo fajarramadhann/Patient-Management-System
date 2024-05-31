@@ -30,6 +30,9 @@ class CustomerResource extends Resource implements FilamentUser
     public static function form(Form $form): Form
     {
         return $form
+        /**
+         * Form buat bikin User Customer baru
+         */
             ->schema([
                 TextInput::make('name')
                 ->required()
@@ -48,6 +51,9 @@ class CustomerResource extends Resource implements FilamentUser
     public static function table(Table $table): Table
     {
         return $table
+            /**
+             * Buat munculin table user
+             * **/
             ->columns([
                 TextColumn::make('name'),
                 TextColumn::make('email'),

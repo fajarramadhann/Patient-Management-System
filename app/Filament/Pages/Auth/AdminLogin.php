@@ -9,6 +9,6 @@ class AdminLogin extends Login
 {
     public function getHeading(): string|Htmlable
     {
-        return __('Admin Login');
+        return __('Admin Login'); // custom heading login form
     }
 }

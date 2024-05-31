@@ -26,7 +26,7 @@ class AppPanelProvider extends PanelProvider
         return $panel
             ->id('app')
             ->path('')
-            ->login(CustomerLogin::class)
+            ->login(CustomerLogin::class) // tambah ->login() kalo bikin panel baru
             ->colors([
                 'primary' => Color::Amber,
             ])
